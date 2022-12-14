@@ -10,15 +10,15 @@
 </head>
 <body>
 <div class="bg-slate-50 p-4 flex flex-start justify-between items-center">
-    <p class="text-3xl border-solid border-r pr-4">MijnEigentaartjes</p>
+    <a href="home.php"><p class="text-3xl border-solid border-r pr-4">MijnEigentaartjes</p></a>
     <div class="flex flex-row w-max self-center">
-        <a href="gallerij.php"<p class="px-4 hover:underline">Gallerij</p></a>
+        <a href="gallerij.php"><p class="px-4 hover:underline">Gallerij</p></a>
         <a href="contact.php" ><p class="px-4 hover:underline">Contact</p></a>
         <a href="about.php"><p class="px-4 hover:underline">Over ons</p></a>
     </div>
     <div class="flex flex-row">
-        <p class="mx-4 hover:underline">login</p>
-        <p class="mx-4 hover:underline">Register</p>
+        <a href="login.php"><p class="mx-4 hover:underline">login</p></a>
+        <a href="register.php"><p class="mx-4 hover:underline">Register</p></a>
     </div>
 </div>
 
