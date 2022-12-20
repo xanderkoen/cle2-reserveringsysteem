@@ -1,7 +1,8 @@
 <?php
 require_once 'C:\xampp\htdocs\cle2\backend\connect.php';
 
-session_start(); //check for user data
+//check for user data
+session_start();
 if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
     header("Location: ./home.php"); // if user data is present (user is logged in) redirect back to homepage
 }
@@ -9,16 +10,56 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
 if(isset($_POST['login'])) {    //check if login button is pressed
     $email = $_POST['email'];
     $wachtwoord1 = $_POST['wachtwoord1'];
+
+    if ($email !="" && $wachtwoord1 !=""){ //check if data is not empty
+
+        $sql = "SELECT * FROM klant WHERE email = '$email'";
+
+        if ($result = null){
+            $error_msg = "account niet gevonden";
+        }
+
+        if ($result = mysqli_query($db, $sql)){//fetch data from database
+
+            $fetchedid = "";
+            $fetchedvoornaam = "";
+            $fetchedachternaam = "";
+            $fetchedemail = "";
+            $fetchedwachtwoord = "";
+            $fetchedadmin = "";
+
+
+            foreach($result as $r) {       //temp save the fetched data
+                $fetchedid = $r['id'];
+                $fetchedvoornaam = $r['voornaam'];
+                $fetchedachternaam = $r['achternaam'];
+                $fetchedemail = $r['email'];
+                $fetchedwachtwoord = $r['wachtwoord'];
+                $fetchedadmin = $r['IsAdmin'];
+            }
+
+            if (password_verify($wachtwoord1, $fetchedwachtwoord)){ //check if password is correct
+                //save data to session
+                $_SESSION['userid'] = $fetchedid;
+                $_SESSION['uservoornaam'] = $fetchedvoornaam;
+                $_SESSION['userachternaam'] = $fetchedachternaam;
+                $_SESSION['useremail'] = $fetchedemail;
+                $_SESSION['userwachtwoord'] = $fetchedwachtwoord;
+                $_SESSION['IsAdmin'] = $fetchedadmin;
+
+                header("Location: home.php");
+                die();
+
+            }else{
+                $error_msg = "Gegevens zijn incorrect.";
+            }
+        }else{
+            $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
+        }
+    }else{
+        $error_msg = "Niet alle velden zijn ingevuld"; //if empty give error message
+    }
 }
-
-//check if data is not empty
-    //if empty give error message
-//hash inputted password
-//fetch data from database
-
-//compare data
-    //if not correct show invalid data error
-    //if correct save to PHP Sessions
 
 //redirect back to homepage.
 

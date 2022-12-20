@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ee60021-ec07-4d52-a05c-38f74927a737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/connect.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/register.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/output.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/about.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/about.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/contact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/gallerij.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/gallerij.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/register.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/register.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +88,10 @@
       <workItem from="1670500638336" duration="4126000" />
       <workItem from="1670838020964" duration="61000" />
       <workItem from="1671025011881" duration="1379000" />
+      <workItem from="1671442556908" duration="985000" />
+      <workItem from="1671450507567" duration="7761000" />
+      <workItem from="1671458676606" duration="2105000" />
+      <workItem from="1671524332905" duration="33000" />
     </task>
     <servers />
   </component>

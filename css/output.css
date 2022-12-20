@@ -1834,8 +1834,56 @@ video {
   line-height: 2.25rem;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .font-bold {
   font-weight: 700;
+}
+
+.font-thin {
+  font-weight: 100;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+.font-extralight {
+  font-weight: 200;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .uppercase {
@@ -1911,13 +1959,13 @@ video {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
-.text-\[\#336699\]\/\[\.35\] {
-  color: rgb(51 102 153 / .35);
-}
-
 .text-blue-500 {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.text-\[\#336699\]\/\[\.35\] {
+  color: rgb(51 102 153 / .35);
 }
 
 .underline {
@@ -2239,16 +2287,6 @@ video {
 
 .hover\:font-bold:hover {
   font-weight: 700;
-}
-
-.hover\:text-blue-500:hover {
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity));
-}
-
-.hover\:text-blue-200:hover {
-  --tw-text-opacity: 1;
-  color: rgb(191 219 254 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {

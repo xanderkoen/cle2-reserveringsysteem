@@ -1,7 +1,8 @@
 <?php
 require_once 'C:\xampp\htdocs\cle2\backend\connect.php';
 
-session_start(); //check for user data
+//check for user data
+session_start();
 if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
     header("Location: ./home.php"); // if user data is present (user is logged in) redirect back to homepage
 }
@@ -30,7 +31,7 @@ if(isset($_POST['register'])){
             if (mysqli_query($db, $sql)){
                 echo "klant successvol geregistreerd";
             }else{
-                echo "ERROR: could not execute $sql". mysqli_error($db);
+                $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
             }
         }else{
             $error_msg = "Wachtwoorden zijn niet gelijk";
