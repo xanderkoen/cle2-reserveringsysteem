@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-//login check if user is not logged in get sent back to login page
-
-
 ?>
 
 <!doctype html>

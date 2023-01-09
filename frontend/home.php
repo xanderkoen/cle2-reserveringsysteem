@@ -93,7 +93,7 @@ session_start();
 
 <div class="grid grid-cols-3 gap-4 place-content-center place-items-center mt-4 mx-4">
     <div class="col-span-1 rounded">
-        <img src="./images/pink-cake.jpg" alt="Roze taart" width="120" height="120">
+        <img src="../images/pink-cake.jpg" alt="Roze taart" width="360" height="360" class="rounded">
     </div>
 
     <div class="place-self-center col-span-2 text-left rounded">
@@ -107,7 +107,7 @@ session_start();
 
         <?php if(isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){
             //user is logged in and can make a appointment
-            echo '<a href="#"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Reserveer</button></a>';
+            echo '<a href="./reserveer.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Reserveer</button></a>';
         }else{
             //user is not logged and and will be reffered to the login page
             echo "<p>Je moet een account hebben om een afspraak te maken.</p>";
@@ -118,7 +118,7 @@ session_start();
     </div>
 
     <div class="col-span-1 rounded mt-24">
-        <p>place rounded picture</p>
+        <img src="../images/bakey-cakey.jpg" height="360" width="360" class="rounded">
     </div>
 
 

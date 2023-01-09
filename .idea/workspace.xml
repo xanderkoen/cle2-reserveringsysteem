@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ee60021-ec07-4d52-a05c-38f74927a737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/basepage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/logout.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/profile.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/bakey-cakey.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pink-cake.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/reserveer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/input.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/input.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/output.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/basepage.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/basepage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/profile.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +98,7 @@
       <workItem from="1672755508398" duration="178000" />
       <workItem from="1672931632200" duration="4732000" />
       <workItem from="1673205496813" duration="10553000" />
-      <workItem from="1673264443799" duration="372000" />
+      <workItem from="1673264443799" duration="10383000" />
     </task>
     <servers />
   </component>
