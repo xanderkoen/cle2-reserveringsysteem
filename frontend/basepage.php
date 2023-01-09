@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+//login check if user is not logged in get sent back to login page
+
+
 ?>
 
 <!doctype html>
@@ -78,50 +82,23 @@ session_start();
                 <div class="dropdown-content">
                     <a href="./profile.php">Mijn profiel</a>
                     <?php if($_SESSION['IsAdmin'] == 1){
-                    echo '<a href="#">Reservering overzicht</a>';}?>
+                        echo '<a href="#">Reservering overzicht</a>';}?>
                     <a href="./logout.php">Log uit</a>
                 </div>
             </div>
             <?php
-            }else{
-           ?><a href="login.php"><p class="mx-4 hover:underline">login</p></a>
-        <a href="register.php"><p class="mx-4 hover:underline">Register</p></a><?php
-        } ?>
-    </div>
-</div>
-
-
-<div class="grid grid-cols-3 gap-4 place-content-center place-items-center mt-4 mx-4">
-    <div class="col-span-1 rounded">
-        <img src="./images/pink-cake.jpg" alt="Roze taart" width="120" height="120">
-    </div>
-
-    <div class="place-self-center col-span-2 text-left rounded">
-        <p class="font-semibold text-3xl mb-2">Beste taartjes in Spijkenisse</p>
-        <p class="text-xl">Mijn naam is Monique en ik maak en decoreer taarten als hobby. Daarom heb ik besloten om een eigen bedrijfje te starten genaamd MijnEigenTaartjes.nl</p>
-    </div>
-
-    <div class="col-span-2 rounded text-right mt-24">
-        <p class="font-semibold text-3xl mb-2">Reserveer afspraak</p>
-        <p class="text-xl">Reserveer hier een afspraak moment voor uw volgende taart</p>
-
-        <?php if(isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){
-            //user is logged in and can make a appointment
-            echo '<a href="#"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Reserveer</button></a>';
         }else{
-            //user is not logged and and will be reffered to the login page
-            echo "<p>Je moet een account hebben om een afspraak te maken.</p>";
-            echo '<a href="./login.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Login</button></a>';
+            ?><a href="login.php"><p class="mx-4 hover:underline">login</p></a>
+            <a href="register.php"><p class="mx-4 hover:underline">Register</p></a><?php
         } ?>
-
-
     </div>
-
-    <div class="col-span-1 rounded mt-24">
-        <p>place rounded picture</p>
-    </div>
-
-
 </div>
+
+<!--START HTML-->
+
+<div>
+</div>
+
+
 </body>
 </html>
