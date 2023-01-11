@@ -118,9 +118,19 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
         unset($_SESSION['sucdel']); //delete success message after showing
     }
 
+    if (isset($_SESSION['passreset'])){
+        echo'<p class="text-green-500"> Wachtwoord successvol veranderd!</p>';// delete success  message
+        unset($_SESSION['passreset']); //delete success message after showing
+    }
+
     if (isset($_SESSION['sucupd'])){
         echo'<p class="text-green-500"> Reservering successvol aangepast!</p>';// delete success  message
         unset($_SESSION['sucupd']); //delete success message after showing
+    }
+
+    if (isset($_SESSION['profupd'])){
+        echo'<p class="text-green-500"> Account successvol aangepast!</p>';// delete success  message
+        unset($_SESSION['profupd']); //delete success message after showing
     }
 
     if (isset($_SESSION['norights'])){
@@ -147,6 +157,9 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
 
             <a href="./profile/edit.php"><button class="bg-yellow-200 hover:bg-yellow-400 py-2 px-4 mt-2 rounded">Verander Gegevens</button></a>
             <a href="./profile/delete.php"><button class="bg-red-300 hover:bg-red-500 py-2 px-4 mt-2 rounded">Verwijder Account</button></a>
+            <?php if ($_SESSION['IsAdmin']){?>
+            <a href="#"><button class="bg-orange-300 hover:bg-orange-500 py-2 px-4 mt-2 rounded">Alle Reservaties [Admin]</button></a>
+            <?php } ?>
 
         </div>
         <div>

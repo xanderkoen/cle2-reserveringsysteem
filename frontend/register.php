@@ -15,6 +15,9 @@ if(isset($_POST['register'])){
     $wachtwoord2 = $_POST['wachtwoord2'];
     //get all the inputted data
 
+    //TODO check for double emails.
+    //redirect with success message and all the shit filled in the inputs.
+
 
     if ($voornaam !="" && $achternaam !="" && $email !="" && $wachtwoord1 !="" && $wachtwoord2 !=""){
         //if all data is not empty go further
@@ -30,6 +33,7 @@ if(isset($_POST['register'])){
 
             if (mysqli_query($db, $sql)){
                 echo "klant successvol geregistreerd";
+                header("Refresh: 2; Location: ./login.php");
             }else{
                 $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
             }
