@@ -1,5 +1,58 @@
 <?php
+require_once 'C:\xampp\htdocs\cle2\backend\connect.php';
 session_start();
+
+//vars
+$userid = $_SESSION['userid'];
+
+if (isset($_POST['delete'])){//wait for post
+    //control check word
+    if ($_POST['check'] == "verwijder"){
+        //control word matches
+
+        // delete every reservation made by this user
+        try {
+            $sql = "DELETE FROM reservering WHERE klant_id = '$userid'";
+
+            if ($result = mysqli_query($db, $sql)){
+                //delete user
+
+                try {
+                    $sql2 = "DELETE FROM klant WHERE id = '$userid'";
+
+                    if ($result2 = mysqli_query($db, $sql2)){
+                        // clear/terminate sessiom
+                        unset($_SESSION['uservoornaam']);
+                        unset($_SESSION['userid']);
+                        unset($_SESSION['userachternaam']);
+                        unset($_SESSION['useremail']);
+                        unset($_SESSION['userwachtwoord']);
+                        if (isset($_SESSION['IsAdmin'])){
+                            unset($_SESSION['IsAdmin']);
+                        }
+                        session_unset();
+                        session_destroy();
+
+                        // redirect with message
+                        header("Location: ../home.php?bye='1'");
+                    }
+                }catch(exception $e){
+                    echo $e;
+                }
+            }
+        }catch(exception $e){
+            echo $e;
+        }
+    }else{
+        $_SESSION['controlerr'] = "nah";
+    }
+
+
+
+
+
+
+}
 
 ?>
 
@@ -93,7 +146,23 @@ session_start();
 
 <!--START HTML-->
 
-<div>
+<div class="mx-24 my-36 text-center rounded justify-items-center">
+    <p class="text-3xl font-bold">Weet je zeker dat je je account wilt deleten?</p>
+    <p>type "verwijder" in en druk dan op de verwijder knop om je aacount echt te verwijderen.</p>
+
+    <form action="../profile/delete.php" method="post">
+        <input class="border rounded p-4 m-4 text-center" name="check" id="check" placeholder="controlewoord">
+        <br>
+
+        <input type="submit" class="bg-rose-700 hover:bg-rose-900 py-2 px-4 mt-4 rounded" name="delete" id="delete" value="Ja verwijder permanent mijn acount."/>
+    </form>
+    <a href="../profile.php"><button class="bg-purple-600 hover:bg-purple-800 py-2 px-4 mt-2 rounded">Keer terug</button></a>
+
+    <?php if (isset($_SESSION['controlerr'])){?>
+        <p class="text-red-500 text-2xl mt-4 text-center"> Controle woord komt niet overeen.</p>
+    <?php } unset($_SESSION['controlerr']); ?>
+
+
 </div>
 
 

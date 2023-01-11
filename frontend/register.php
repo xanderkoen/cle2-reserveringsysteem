@@ -8,37 +8,64 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
 }
 
 if(isset($_POST['register'])){
+    //get all the inputted data
     $voornaam = $_POST['voornaam'];
     $achternaam = $_POST['achternaam'];
     $email = $_POST['email'];
     $wachtwoord1 = $_POST['wachtwoord1'];
     $wachtwoord2 = $_POST['wachtwoord2'];
-    //get all the inputted data
-
-    //TODO check for double emails.
-    //redirect with success message and all the shit filled in the inputs.
-
 
     if ($voornaam !="" && $achternaam !="" && $email !="" && $wachtwoord1 !="" && $wachtwoord2 !=""){
         //if all data is not empty go further
+        //check if the email is unique
 
-        if ($wachtwoord1 === $wachtwoord2) {
-            //check if passwords match
-            //if passwords match hash the password
-            $hashedpassword = password_hash($wachtwoord1, PASSWORD_DEFAULT);
+        try {
+            $sql = "SELECT * FROM klant WHERE email = '$email'";
 
-            //send all the user data to database
-            $sql = "INSERT INTO klant (voornaam, achternaam, email, wachtwoord) 
-            VALUES ('$voornaam', '$achternaam', '$email', '$hashedpassword')";
+            if ($result = mysqli_query($db, $sql)){
+                $count = mysqli_num_rows($result);
 
-            if (mysqli_query($db, $sql)){
-                echo "klant successvol geregistreerd";
-                header("Refresh: 2; Location: ./login.php");
-            }else{
-                $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
+                if ($count == 0){
+                    //email is unique
+                    //check if password is long enough
+                    if (strlen($wachtwoord1) >= 5 && strlen($wachtwoord2) >= 5){
+                        //passwords are long enough
+
+                        //check if passwords match
+                        if ($wachtwoord1 === $wachtwoord2) {
+
+                            //if passwords match hash the password
+                            $hashedpassword = password_hash($wachtwoord1, PASSWORD_DEFAULT);
+                            try {
+
+                                //send all the user data to database
+                                $sql = "INSERT INTO klant (voornaam, achternaam, email, wachtwoord) VALUES ('$voornaam', '$achternaam', '$email', '$hashedpassword')";
+
+                                if (mysqli_query($db, $sql)){
+                                    //redirect with success message and all the shit filled in the inputs.
+
+                                    $_SESSION['reg-email'] = $email;
+                                    $_SESSION['reg-pass'] = $_POST['wachtwoord1'];
+
+                                    header("Location: ./login.php");
+                                }
+
+                            }catch(exception $e){
+                                $error_msg = $e;
+                            }
+                        }else{
+                            $error_msg = "Wachtwoorden zijn niet gelijk";
+                        }
+                    }else{
+                        $error_msg = "wachtwoorden moeten minimaal 5 letters bevatten.";
+                    }
+                }else{
+                    $error_msg = "Er bestaat al een account met dit email.";
+                    var_dump($count);
+                }
             }
-        }else{
-            $error_msg = "Wachtwoorden zijn niet gelijk";
+        }catch(exception $e){
+            $error_msg = $e;
         }
     }else{
         $error_msg = "Niet alle velden zijn ingevuld";
@@ -75,7 +102,8 @@ if(isset($_POST['register'])){
 <div class="flex flex-col w-full items-center">
     <?php
         if (isset($error_msg)){
-            echo"<p class='text-red-500'>$error_msg</p>";
+            echo"<p class='text-red-500 text-xl'>$error_msg</p>";
+            unset($error_msg);
         }
     ?>
 

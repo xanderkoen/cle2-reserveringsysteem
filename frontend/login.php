@@ -93,20 +93,24 @@ if(isset($_POST['login'])) {    //check if login button is pressed
     if (isset($error_msg)){
         echo"<p class='text-red-500'>$error_msg</p>";
     }
-    ?>
+
+    if (isset($_SESSION['reg-email']) && isset($_SESSION['reg-pass'])){?>
+        <p class="text-xl text-green-500">Account successvol geregistreerd!</p>
+   <?php } ?>
 
     <form action="./login.php" method="post">
 
         <div class="flex flex-col w-max items-center bg-slate-100 rounded mx-4">
             <p>Login</p>
 
-            <input class="border border-solid rounded" type="email" name="email" placeholder="email">
-            <input class="border border-solid rounded" type="password" name="wachtwoord1" placeholder="Wachtwoord">
-            <input type="submit" class="bg-green-600 rounded p-1 m-4" name="login" value="login"/>
+            <input class="border border-solid rounded" type="email" name="email" placeholder="email" <?php if(isset($_SESSION['reg-email'])){ $setemail = $_SESSION['reg-email']; echo "value='$setemail'";}?>>
+            <input class="border border-solid rounded" type="password" name="wachtwoord1" placeholder="Wachtwoord" <?php if(isset($_SESSION['reg-pass'])){ $setpass = $_SESSION['reg-pass']; echo "value='$setpass'";}?>>
+            <input type="submit" class="bg-green-600 rounded p-1 px-2 m-4" name="login" value="Log in"/>
         </div>
 
     </form>
 
+    <?php unset($_SESSION['reg-email']);unset($_SESSION['reg-pass']); ?>
     <p>Heb je nog geen account? klik <a href="register.php" class="text-blue-500 hover:underline">Hier</a> om in te registreren.</p>
 </div>
 </body>
