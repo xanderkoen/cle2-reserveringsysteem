@@ -1,51 +1,6 @@
 <?php
-require_once 'C:\xampp\htdocs\cle2\backend\connect.php';
 session_start();
 
-function successredirect() {
-    $_SESSION['successmsg'] = "yippie";
-    header("Location: ./profile.php");
-}
-
-if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
-    header("Location: ./login.php"); // if user data is  not present (user is logged out) redirect back to login
-}
-
-//first we check if user submits the form
-if(isset($_POST["reserveer"])){
-    //check if user forgot to select a cake size
-    if ($_POST['soort'] == "0"){
-        $soortmsg = "Kies een optie.";
-    }else{
-        //retrieve all values
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $soort = $_POST['soort'];
-        $userid = $_SESSION['userid'];
-
-        //check if message is written then post to database with or without the extra message
-        if (strlen($_POST['extra']) > 0){
-            //message is filled
-            $extra = $_POST['extra'];
-            $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '$extra', '$soort', '$userid')";
-
-            if (mysqli_query($db, $sql)){
-                successredirect();
-            }else{
-                $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
-            }
-        }else{
-            //message is empty
-            $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '', '$soort', '$userid')";
-
-            if (mysqli_query($db, $sql)){
-                successredirect();
-            }else{
-                $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
-            }
-        }
-    }
-}
 ?>
 
 <!doctype html>
@@ -138,33 +93,7 @@ if(isset($_POST["reserveer"])){
 
 <!--START HTML-->
 
-<div class="bg-pink-50 rounded mt-4 mx-24 text-center">
-    <p class="text-3xl">Reserveer afspraak</p>
-
-    <form action="./reserveer.php" method="post">
-        <p class="text-xl mt-4">datum</p>
-        <input type="date" name="date" id="date" required>
-
-        <p class="text-xl mt-4">tijd</p>
-        <input type="time" name="time" id="time" required>
-
-        <p class="text-xl mt-4">Soort taart</p>
-        <?php if (isset($soortmsg)){
-            echo "<p class='text-red-500'>$soortmsg</p>";
-        } ?>
-        <select name="soort" id="soort" required>
-            <option selected value="0">Kies een optie</option>
-            <option value="1">Cupcakes</option>
-            <option value="2">Kleine taart</option>
-            <option value="3">Grote taart</option>
-        </select>
-
-        <p class="text-xl mt-4">Extra informatie</p>
-        <p class="txt-xs">Als je geen extra commentaar hebt mag je dit leeglaten</p>
-        <textarea cols="40" rows="3" class="resize-none" name="extra" id="extra"></textarea>
-        <br>
-        <input type="submit" class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded" name="reserveer" value="reserveer">
-    </form>
+<div>
 </div>
 
 

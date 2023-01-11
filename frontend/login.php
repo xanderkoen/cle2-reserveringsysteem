@@ -61,11 +61,6 @@ if(isset($_POST['login'])) {    //check if login button is pressed
     }
 }
 
-//redirect back to homepage.
-
-//make homepage check if you are logged in and change page accordingly.
-
-
 ?>
 
 <!doctype html>
