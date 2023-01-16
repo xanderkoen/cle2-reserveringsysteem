@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ee60021-ec07-4d52-a05c-38f74927a737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/reservering/reservering.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/output.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/overzicht.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/overzicht.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/reserveer.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/reserveer.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +102,7 @@
       <workItem from="1673347431765" duration="45340000" />
       <workItem from="1673871141087" duration="169000" />
       <workItem from="1673872596065" duration="5347000" />
-      <workItem from="1673885257519" duration="4726000" />
+      <workItem from="1673885257519" duration="9532000" />
     </task>
     <servers />
   </component>

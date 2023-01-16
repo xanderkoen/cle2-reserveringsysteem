@@ -23,10 +23,25 @@ if(isset($_POST["reserveer"])){
         $soort = $_POST['soort'];
         $userid = $_SESSION['userid'];
 
+        //check if the made date is not made for the past
+        if ($date <= date("Y-m-d")) {
+            //error date is not allowed
+            $_SESSION['invalid_date'] = "deze datum is niet toegestaan.";
+            header("Location : ../frontend/reserveer.php");
+        }
+
+        //check for illegal times
+        if ($time < '09:00' || $time > '17:00' ){
+            $invalid_time = "deze tijd is niet toegestaan.";
+            header("Location : ../frontend/reserveer.php");
+        }
+
         //check if message is written then post to database with or without the extra message
         if (strlen($_POST['extra']) > 0){
             //message is filled
             $extra = $_POST['extra'];
+
+            $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '$extra', '$soort', '$userid')";
 
             if (mysqli_query($db, $sql)){
                 successredirect();
@@ -142,15 +157,24 @@ if(isset($_POST["reserveer"])){
 
     <form action="./reserveer.php" method="post">
         <p class="text-xl mt-4">datum</p>
-        <input type="date" name="date" id="date" required>
+        <?php if (isset($_SESSION['invalid_date'])){
+            echo "<p class='text-red-500'>deze datum is niet toegestaan.</p>";
+            unset($_SESSION['invalid_date']);
+        } ?>
+        <input type="date" name="date" id="date" min="<?= date("Y-m-d", strtotime("+1 day"))?>" required>
 
         <p class="text-xl mt-4">tijd</p>
-        <input type="time" name="time" id="time" required>
+        <?php if (isset($_SESSION['invalid_time'])){
+            echo "<p class='text-red-500'>deze tijd is niet toegestaan.</p>";
+            unset($_SESSION['invalid_time']);
+        }?>
+        <p class="text-xs mb-2">mogelijk vanaf 09 - 17:00</p>
+        <input type="time" name="time" id="time" min="09:00" max="17:00" required>
 
         <p class="text-xl mt-4">Soort taart</p>
         <?php if (isset($soortmsg)){
             echo "<p class='text-red-500'>$soortmsg</p>";
-        } ?>
+        }?>
         <select name="soort" id="soort" required>
             <option selected value="0">Kies een optie</option>
             <option value="1">Cupcakes</option>

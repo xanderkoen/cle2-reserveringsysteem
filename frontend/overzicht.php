@@ -139,14 +139,17 @@ try {
             $sql = "SELECT reservering.id, datum, tijd, klant.voornaam, klant.achternaam FROM reservering INNER JOIN klant ON reservering.klant_id = klant.id ORDER BY reservering.datum ASC, reservering.tijd ASC;";
 
             if ($result = mysqli_query($db, $sql)){
-                while ($row = $result->fetch_assoc()){?>
+                while ($row = $result->fetch_assoc()){
+                    if ($row['datum'] >= date("Y-m-d")){ // filter out all the reservations from the past?>
                         <tr>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['voornaam'] ?></th>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['achternaam'] ?></th>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['datum']?></th>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['tijd']?></th>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><a href="../frontend/reservering/reservering.php?id=<?= $row['id']?>"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Meer info</button></a></th>
-                        </tr><?php
+                        </tr>
+                        <?php
+                    }
                 }
             }
             }catch(exception $e){
