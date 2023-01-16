@@ -150,7 +150,7 @@ if(isset($_POST['update'])){//waiting for button submit press
                 <div class="dropdown-content">
                     <a href=".././profile.php">Mijn profiel</a>
                     <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href="#">Reservering overzicht</a>';}?>
+                        echo '<a href=".././overzicht.php">Reservering overzicht</a>';}?>
                     <a href=".././logout.php">Log uit</a>
                 </div>
             </div>

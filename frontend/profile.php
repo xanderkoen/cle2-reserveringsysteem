@@ -93,7 +93,7 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
                 <div class="dropdown-content">
                     <a href="./profile.php" class="bg-slate-150" style="background-color: #ddd;">Mijn profiel</a>
                     <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href="#">Reservering overzicht</a>';}?>
+                        echo '<a href="./overzicht.php">Reservering overzicht</a>';}?>
                     <a href="./logout.php">Log uit</a>
                 </div>
             </div>
@@ -158,7 +158,7 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
             <a href="./profile/edit.php"><button class="bg-yellow-200 hover:bg-yellow-400 py-2 px-4 mt-2 rounded">Verander Gegevens</button></a>
             <a href="./profile/delete.php"><button class="bg-red-300 hover:bg-red-500 py-2 px-4 mt-2 rounded">Verwijder Account</button></a>
             <?php if ($_SESSION['IsAdmin']){?>
-            <a href="#"><button class="bg-orange-300 hover:bg-orange-500 py-2 px-4 mt-2 rounded">Alle Reservaties [Admin]</button></a>
+            <a href="./overzicht.php"><button class="bg-orange-300 hover:bg-orange-500 py-2 px-4 mt-2 rounded">Alle Reservaties [Admin]</button></a>
             <?php } ?>
 
         </div>

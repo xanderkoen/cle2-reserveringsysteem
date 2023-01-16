@@ -2,49 +2,29 @@
 require_once 'C:\xampp\htdocs\cle2\backend\connect.php';
 session_start();
 
-function successredirect() {
-    $_SESSION['successmsg'] = "yippie";
-    header("Location: ./profile.php");
-}
+//variables
+$date = date("Y-m-d");
 
+//mandatory checks
+//user logged in
 if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
-    header("Location: ./login.php"); // if user data is  not present (user is logged out) redirect back to login
+header("Location: ./login.php");} // if user data is  not present (user is logged out) redirect back to login
+//user is admin
+if ($_SESSION['IsAdmin'] != 1){
+    header("Location: ./home.php");
 }
 
-//first we check if user submits the form
-if(isset($_POST["reserveer"])){
-    //check if user forgot to select a cake size
-    if ($_POST['soort'] == "0"){
-        $soortmsg = "Kies een optie.";
-    }else{
-        //retrieve all values
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $soort = $_POST['soort'];
-        $userid = $_SESSION['userid'];
+//retrieve reservatie count
+try {
+    $countsql = "SELECT id FROM reservering WHERE datum = '$date'";
 
-        //check if message is written then post to database with or without the extra message
-        if (strlen($_POST['extra']) > 0){
-            //message is filled
-            $extra = $_POST['extra'];
-
-            if (mysqli_query($db, $sql)){
-                successredirect();
-            }else{
-                $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
-            }
-        }else{
-            //message is empty
-            $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '', '$soort', '$userid')";
-
-            if (mysqli_query($db, $sql)){
-                successredirect();
-            }else{
-                $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
-            }
-        }
+    if($today = mysqli_query($db, $countsql)){
+        $reserveringtoday = mysqli_num_rows($today);
     }
+}catch(exception $e){
+    echo $e;
 }
+
 ?>
 
 <!doctype html>
@@ -123,7 +103,7 @@ if(isset($_POST["reserveer"])){
                 <div class="dropdown-content">
                     <a href="./profile.php">Mijn profiel</a>
                     <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href="#">Reservering overzicht</a>';}?>
+                        echo '<a href="./overzicht.php" style="background-color: #ddd;">Reservering overzicht</a>';}?>
                     <a href="./logout.php">Log uit</a>
                 </div>
             </div>
@@ -136,34 +116,40 @@ if(isset($_POST["reserveer"])){
 </div>
 
 <!--START HTML-->
-
 <div class="bg-pink-50 rounded mt-4 mx-24 text-center">
-    <p class="text-3xl">Reserveer afspraak</p>
+    <p class="text-3xl text-semibold">Reserverings overzicht</p>
+    <p>Je hebt <?= $reserveringtoday?> reservaties vandaag</p>
+    <p>druk op de knop voor de reservering voor meer informatie</p>
 
-    <form action="./reserveer.php" method="post">
-        <p class="text-xl mt-4">datum</p>
-        <input type="date" name="date" id="date" required>
+    <table class="border-collapse table-auto w-full text-sm">
+        <tr>
+            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3">voornaam</th>
+            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3">achternaam</th>
+            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3">datum</th>
+            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3">tijd</th>
+            <th></th>
+        </tr>
+        <?php
+            //retrieve data for page
+            try {
+            $sql = "SELECT reservering.id, datum, tijd, klant.voornaam, klant.achternaam FROM reservering INNER JOIN klant ON reservering.klant_id = klant.id ORDER BY reservering.datum ASC, reservering.tijd ASC;";
 
-        <p class="text-xl mt-4">tijd</p>
-        <input type="time" name="time" id="time" required>
+            if ($result = mysqli_query($db, $sql)){
+                while ($row = $result->fetch_assoc()){?>
+                        <tr>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['voornaam'] ?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['achternaam'] ?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['datum']?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['tijd']?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><a href="./reservering/reservering.php?id=<?= $row['id']?>"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Meer info</button></a></th>
+                        </tr><?php
+                }
+            }
+            }catch(exception $e){
+            echo $e;
+            }?>
+    </table>
 
-        <p class="text-xl mt-4">Soort taart</p>
-        <?php if (isset($soortmsg)){
-            echo "<p class='text-red-500'>$soortmsg</p>";
-        } ?>
-        <select name="soort" id="soort" required>
-            <option selected value="0">Kies een optie</option>
-            <option value="1">Cupcakes</option>
-            <option value="2">Kleine taart</option>
-            <option value="3">Grote taart</option>
-        </select>
-
-        <p class="text-xl mt-4">Extra informatie</p>
-        <p class="txt-xs">Als je geen extra commentaar hebt mag je dit leeglaten</p>
-        <textarea cols="40" rows="3" class="resize-none" name="extra" id="extra"></textarea>
-        <br>
-        <input type="submit" class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded" name="reserveer" value="reserveer">
-    </form>
 </div>
 
 
