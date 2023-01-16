@@ -46,12 +46,6 @@ if (isset($_POST['delete'])){//wait for post
     }else{
         $_SESSION['controlerr'] = "nah";
     }
-
-
-
-
-
-
 }
 
 ?>

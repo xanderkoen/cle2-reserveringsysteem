@@ -20,9 +20,9 @@ if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
 if (isset($_POST['update'])) { //wait for the update input
 
     //retrieve posted lines
-    $newvoornaam = $_POST['voornaam'];
-    $newachternaam = $_POST['achternaam'];
-    $newemail = $_POST['email'];
+    $newvoornaam = mysqli_real_escape_string($db, $_POST['voornaam']);
+    $newachternaam = mysqli_real_escape_string($db, $_POST['achternaam']);
+    $newemail = mysqli_real_escape_string($db, $_POST['email']);
 
 
     //update the user [userid] in SQL
@@ -141,7 +141,7 @@ if (isset($_POST['update'])) { //wait for the update input
 <!--START HTML-->
 
 <div class="mx-24 mt-4 text-center rounded">
-    <p class="text-3xl text-semibold mb-4"> Sex 3 THE TRILOGY - The RETURN OF THE SEX AND THE COMING</p>
+    <p class="text-3xl text-semibold mb-4"> Verander profiel</p>
     <form action="../profile/edit.php?id=<?= $_SESSION['userid'] ?>" method="post">
 
 

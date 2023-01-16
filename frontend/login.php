@@ -8,8 +8,8 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
 }
 
 if(isset($_POST['login'])) {    //check if login button is pressed
-    $email = $_POST['email'];
-    $wachtwoord1 = $_POST['wachtwoord1'];
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $wachtwoord1 = mysqli_real_escape_string($db, $_POST['wachtwoord1']);
 
     if ($email !="" && $wachtwoord1 !=""){ //check if data is not empty
 

@@ -39,7 +39,7 @@ if(isset($_POST["reserveer"])){
         //check if message is written then post to database with or without the extra message
         if (strlen($_POST['extra']) > 0){
             //message is filled
-            $extra = $_POST['extra'];
+            $extra = mysqli_real_escape_string($db, $_POST['extra']);
 
             $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '$extra', '$soort', '$userid')";
 

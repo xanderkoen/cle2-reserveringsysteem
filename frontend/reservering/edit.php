@@ -48,7 +48,7 @@ if ($result = mysqli_query($db, $sql)){
         //retrieve all the values
         $tijd = $_POST['time'];
         $datum = $_POST['date'];
-        $info = $_POST['extra'];
+        $info = mysqli_real_escape_string($db, $_POST['extra']);
         $soort = $_POST['soort'];
 
         //dubble check time/date before updating

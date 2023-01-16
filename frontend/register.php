@@ -9,11 +9,11 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
 
 if(isset($_POST['register'])){
     //get all the inputted data
-    $voornaam = $_POST['voornaam'];
-    $achternaam = $_POST['achternaam'];
-    $email = $_POST['email'];
-    $wachtwoord1 = $_POST['wachtwoord1'];
-    $wachtwoord2 = $_POST['wachtwoord2'];
+    $voornaam = mysqli_real_escape_string($db, $_POST['voornaam']);
+    $achternaam = mysqli_real_escape_string($db, $_POST['achternaam']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $wachtwoord1 = mysqli_real_escape_string($db, $_POST['wachtwoord1']);
+    $wachtwoord2 = mysqli_real_escape_string($db, $_POST['wachtwoord2']);
 
     if ($voornaam !="" && $achternaam !="" && $email !="" && $wachtwoord1 !="" && $wachtwoord2 !=""){
         //if all data is not empty go further
