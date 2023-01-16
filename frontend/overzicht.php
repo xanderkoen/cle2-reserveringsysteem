@@ -118,8 +118,12 @@ try {
 <!--START HTML-->
 <div class="bg-pink-50 rounded mt-4 mx-24 text-center">
     <p class="text-3xl text-semibold">Reserverings overzicht</p>
+    <?php if (isset($_SESSION['admin'])){?>
+    <p class="text-green-500">Reservering successvol geannuleerd.</p><?php
+        unset($_SESSION['admin']);
+    }?>
     <p>Je hebt <?= $reserveringtoday?> reservaties vandaag</p>
-    <p>druk op de knop voor de reservering voor meer informatie</p>
+    <p class="mb-4">druk op de knop voor de reservering voor meer informatie</p>
 
     <table class="border-collapse table-auto w-full text-sm">
         <tr>
@@ -141,7 +145,7 @@ try {
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['achternaam'] ?></th>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['datum']?></th>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['tijd']?></th>
-                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><a href="./reservering/reservering.php?id=<?= $row['id']?>"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Meer info</button></a></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><a href="../frontend/reservering/reservering.php?id=<?= $row['id']?>"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Meer info</button></a></th>
                         </tr><?php
                 }
             }
