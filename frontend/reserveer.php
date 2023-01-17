@@ -193,8 +193,8 @@ if(isset($_POST["reserveer"])){
         </select>
 
         <p class="text-xl mt-4">Extra informatie</p>
-        <?php if (isset($nolinks)){
-            echo "<p class='text-red-500'>Het is niet toegestaan om links in te voeren.</p>";
+        <?php if (isset($nolinks)){?>
+            <p class='text-red-500'>Het is niet toegestaan om links in te voeren.</p><?php
             unset($nolinks);
         } ?>
         <p class="txt-xs">Als je geen extra commentaar hebt mag je dit leeglaten</p>
@@ -203,7 +203,5 @@ if(isset($_POST["reserveer"])){
         <input type="submit" class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded" name="reserveer" value="reserveer">
     </form>
 </div>
-
-
 </body>
 </html>
