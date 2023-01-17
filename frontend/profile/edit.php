@@ -25,24 +25,33 @@ if (isset($_POST['update'])) { //wait for the update input
     $newemail = mysqli_real_escape_string($db, $_POST['email']);
 
 
-    //update the user [userid] in SQL
+    //check the strings for links
+    if (str_contains($newvoornaam, "http") || str_contains($newvoornaam, "https") || str_contains($newvoornaam,"www.")){
+        $nolinks = "neen";
+    }elseif (str_contains($newachternaam, "http") || str_contains($newachternaam, "https") || str_contains($newachternaam, "www.")){
+        $nolinks = "neen";
+    }elseif (str_contains($newemail, "http") || str_contains($newemail, "https") || str_contains($newemail, "www.")){
+        $nolinks = "neen";
+    }else{
+        //update the user [userid] in SQL
 
-    try {
-        $sql = "UPDATE klant SET voornaam='$newvoornaam', achternaam='$newachternaam', email='$newemail' WHERE id = '$userid'";
-        //on success update the saved session variables
+        try {
+            $sql = "UPDATE klant SET voornaam='$newvoornaam', achternaam='$newachternaam', email='$newemail' WHERE id = '$userid'";
+            //on success update the saved session variables
 
-        if ($updresult = mysqli_query($db, $sql)){
-            //item successfully updated
+            if ($updresult = mysqli_query($db, $sql)){
+                //item successfully updated
 
-            $_SESSION['uservoornaam'] = $newvoornaam;
-            $_SESSION['userachternaam'] = $newachternaam;
-            $_SESSION['useremail'] = $newemail;
+                $_SESSION['uservoornaam'] = $newvoornaam;
+                $_SESSION['userachternaam'] = $newachternaam;
+                $_SESSION['useremail'] = $newemail;
 
-            $_SESSION['profupd'] = "success updatde";
-            header("Location: .././profile.php");
+                $_SESSION['profupd'] = "success updatde";
+                header("Location: .././profile.php");
+            }
+        }catch(exception $e){
+            echo $e;
         }
-    }catch(exception $e){
-        echo $e;
     }
 }
 
@@ -143,6 +152,10 @@ if (isset($_POST['update'])) { //wait for the update input
 <div class="mx-24 mt-4 text-center rounded">
     <p class="text-3xl text-semibold mb-4"> Verander profiel</p>
     <form action="../profile/edit.php?id=<?= $_SESSION['userid'] ?>" method="post">
+        <?php if (isset($nolinks)){?>
+        <p class="text-red-500">Links zijn niet toegestaan.</p><?php
+        unset($nolinks);
+        } ?>
 
 
         <div class="flex flex-col w-fit m-auto">

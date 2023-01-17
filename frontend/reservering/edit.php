@@ -56,23 +56,27 @@ if ($result = mysqli_query($db, $sql)){
             $_SESSION['timeerr'] = 'no time';
             header("Location: .././profile.php");
         }else{
-            //user has time left so they can modify item
+            //check for links in info
 
-            var_dump($info);
+            if (str_contains($info, "http") || str_contains($info, "https") || str_contains($info, "www.")){
+                $nolinks = "neen";
+            }else{
+                //user has time left and no links so they can modify the item
 
-            try {
+                try {
 
-                $update = "UPDATE reservering SET datum='$datum', tijd='$tijd', info='$info', taart='$soort' WHERE id = '$itemid'";
+                    $update = "UPDATE reservering SET datum='$datum', tijd='$tijd', info='$info', taart='$soort' WHERE id = '$itemid'";
 
-                if ($updresult = mysqli_query($db, $update)){
-                    //item successfully updated
+                    if ($updresult = mysqli_query($db, $update)){
+                        //item successfully updated
 
-                    $_SESSION['sucupd'] = "success updatde";
-                    header("Location: .././profile.php");
+                        $_SESSION['sucupd'] = "success updatde";
+                        header("Location: .././profile.php");
+                    }
+
+                }catch(exception $e){
+                    echo $e;
                 }
-
-            }catch(exception $e){
-                 echo $e;
             }
         }
     }
@@ -210,7 +214,12 @@ else{
                 <tr>
                     <td class="p-4"><input type="date" name="date" id="date" value="<?= $row['datum']?>" class="border rounded p-2" required></td>
                     <td class="p-4"><input type="time" name="time" id="time" value="<?= $row['tijd']?>" class="border rounded p-2" required></td>
-                    <td class="p-4 "><textarea cols="40" rows="3" class="resize-none border rounded" name="extra" id="extra"><?= $row['info']?></textarea></td>
+                    <td class="p-4 ">
+                        <?php if (isset($nolinks)){?>
+                            <p class="text-red-500">Links zijn niet toegestaan.</p><?php
+                            unset($nolinks);
+                        } ?>
+                        <textarea cols="40" rows="3" class="resize-none border rounded" name="extra" id="extra"><?= $row['info']?></textarea></td>
                     <td class="p-4">
                         <select name="soort" id="soort" class="border rounded p-4" required>
                         <?php if($row['taart'] == 1){?>

@@ -16,51 +16,67 @@ if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
     header("Location: .././profile.php"); // if user data is  not present (user is logged out) redirect back to login
 }
 
+
+
 //dont have to check if the user is editing the correct person since everything is gathered from the session
 if(isset($_POST['update'])){//waiting for button submit press
 
+    //save all the data to strings
+    $formoldpass = mysqli_real_escape_string($db, $_POST['formoldpass']);
+    $newpass = mysqli_real_escape_string($db, $_POST['newpass']);
+    $newpass1 = mysqli_real_escape_string($db, $_POST['newpass1']);
+
     //check if everything is filled in
-    if (strlen($_POST['formoldpass']) > 0 ){
+    if (strlen($formoldpass) > 0 ){
         //old password is filled in
-        if (strlen($_POST['newpass']) >= 5 && strlen($_POST['newpass1']) >= 5){
+        if (strlen($newpass) >= 5 && strlen($newpass1) >= 5){
             //new passwords are long enough
-            //check if newpassword == newpassword2
 
-            if ($_POST['newpass'] == $_POST['newpass1']){
-                //new passwords match
-                //check if formoldpassword == dboldpassword
+            //check for links in the password
+            if (str_contains($formoldpass, "http") || str_contains($formoldpass, "https") || str_contains($formoldpass, "www.")){
+                $nolinks = "neen";
+            }elseif (str_contains($newpass, "http") || str_contains($newpass, "https") || str_contains($newpass, "www.")){
+                $nolinks = "neen";
+            }elseif (str_contains($newpass1, "http") || str_contains($newpass1, "https") || str_contains($newpass1, "www.")){
+                $nolinks = "neen";
+            }else{
+                //no links present
 
-                if (password_verify($_POST['formoldpass'], $_SESSION['userwachtwoord'])){
-                    //old passwords match
+                if ($newpass == $newpass1){
+                    //new passwords match
+                    //check if formoldpassword == dboldpassword
 
-                    //hash newpassword
-                    $hashedpass = password_hash($_POST['newpass'], PASSWORD_DEFAULT);
+                    if (password_verify($formoldpass, $userwachtwoord)){
+                        //old passwords match
 
-                    //SQL update klant wachtwoord='$hashedpassword'
+                        //hash newpassword
+                        $hashedpass = password_hash($newpass, PASSWORD_DEFAULT);
+
+                        //SQL update klant wachtwoord='$hashedpassword'
                         //onsuccess redirect to profile.php with message
-                    try {
-                        $sql = "UPDATE klant SET wachtwoord='$hashedpass' WHERE id = '$userid'";
+                        try {
+                            $sql = "UPDATE klant SET wachtwoord='$hashedpass' WHERE id = '$userid'";
 
-                        if ($result = mysqli_query($db, $sql)){
-                            //update session password
-                            $_SESSION['userwachtwoord'];
-                            $_SESSION['passreset'] = "password has been successfully reset";
-                            header("Location: ../profile.php");
-                            die();
+                            if ($result = mysqli_query($db, $sql)){
+                                //update session password
+                                $_SESSION['userwachtwoord'];
+                                $_SESSION['passreset'] = "password has been successfully reset";
+                                header("Location: ../profile.php");
+                                die();
+                            }
+                        }catch(exception $e){
+                            echo $e;
                         }
-                    }catch(exception $e){
-                        echo $e;
+
+                    }else{
+                        $_SESSION['wrongold'] = 'old dont match';
                     }
 
                 }else{
-                    $_SESSION['wrongold'] = 'old dont match';
+                    //new passwords are not the same
+                    $_SESSION['newsim'] = 'not the same';
                 }
-
-            }else{
-                //new passwords are not the same
-                $_SESSION['newsim'] = 'not the same';
             }
-
 
         }else{
             //new passwords are not long enough
@@ -171,6 +187,10 @@ if(isset($_POST['update'])){//waiting for button submit press
     <p class="mb-12">om je wachtwoord te veranderen moet je voor de veiligheid je oude wachtwoord invoeren</p>
 
     <form action="../profile/password.php" method="post">
+
+        <?php if (isset($nolinks)){ ?>
+        <p class="text-red-500">Links zijn niet toegestaan.</p><?php
+            unset($nolinks); }?>
 
         <div class="rounded border-2 border-solid w-72 p-4 mb-6 mx-auto">
             <?php if (isset($_SESSION['wrongold'])){ ?>

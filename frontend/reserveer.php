@@ -39,15 +39,25 @@ if(isset($_POST["reserveer"])){
         //check if message is written then post to database with or without the extra message
         if (strlen($_POST['extra']) > 0){
             //message is filled
+
+
+            //check for links in the input
             $extra = mysqli_real_escape_string($db, $_POST['extra']);
 
-            $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '$extra', '$soort', '$userid')";
-
-            if (mysqli_query($db, $sql)){
-                successredirect();
+            if(str_contains($extra, 'http') || str_contains($extra, 'https') || str_contains($extra, 'www.')){
+                $nolinks = "neen";
             }else{
-                $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
+                try {
+                    $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '$extra', '$soort', '$userid')";
+
+                    if (mysqli_query($db, $sql)){
+                        successredirect();
+                    }
+                }catch(exception $e){
+                    echo $e;
+                }
             }
+
         }else{
             //message is empty
             $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '', '$soort', '$userid')";
@@ -183,6 +193,10 @@ if(isset($_POST["reserveer"])){
         </select>
 
         <p class="text-xl mt-4">Extra informatie</p>
+        <?php if (isset($nolinks)){
+            echo "<p class='text-red-500'>Het is niet toegestaan om links in te voeren.</p>";
+            unset($nolinks);
+        } ?>
         <p class="txt-xs">Als je geen extra commentaar hebt mag je dit leeglaten</p>
         <textarea cols="40" rows="3" class="resize-none" name="extra" id="extra"></textarea>
         <br>

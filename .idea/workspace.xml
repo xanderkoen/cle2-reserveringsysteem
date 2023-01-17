@@ -4,8 +4,8 @@
     <list default="true" id="4ee60021-ec07-4d52-a05c-38f74927a737" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/profile/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/profile/delete.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/profile/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/profile/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/profile/password.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/profile/password.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/register.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/reserveer.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/reserveer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/reservering/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/reservering/edit.php" afterDir="false" />
@@ -106,6 +106,7 @@
       <workItem from="1673871141087" duration="169000" />
       <workItem from="1673872596065" duration="5347000" />
       <workItem from="1673885257519" duration="12313000" />
+      <workItem from="1673944118218" duration="5308000" />
     </task>
     <servers />
   </component>

@@ -13,49 +13,64 @@ if(isset($_POST['login'])) {    //check if login button is pressed
 
     if ($email !="" && $wachtwoord1 !=""){ //check if data is not empty
 
-        $sql = "SELECT * FROM klant WHERE email = '$email'";
+        //check if input contains no links
 
-        if ($result = null){
-            $error_msg = "account niet gevonden";
-        }
-
-        if ($result = mysqli_query($db, $sql)){//fetch data from database
-
-            $fetchedid = "";
-            $fetchedvoornaam = "";
-            $fetchedachternaam = "";
-            $fetchedemail = "";
-            $fetchedwachtwoord = "";
-            $fetchedadmin = "";
-
-
-            foreach($result as $r) {       //temp save the fetched data
-                $fetchedid = $r['id'];
-                $fetchedvoornaam = $r['voornaam'];
-                $fetchedachternaam = $r['achternaam'];
-                $fetchedemail = $r['email'];
-                $fetchedwachtwoord = $r['wachtwoord'];
-                $fetchedadmin = $r['IsAdmin'];
-            }
-
-            if (password_verify($wachtwoord1, $fetchedwachtwoord)){ //check if password is correct
-                //save data to session
-                $_SESSION['userid'] = $fetchedid;
-                $_SESSION['uservoornaam'] = $fetchedvoornaam;
-                $_SESSION['userachternaam'] = $fetchedachternaam;
-                $_SESSION['useremail'] = $fetchedemail;
-                $_SESSION['userwachtwoord'] = $fetchedwachtwoord;
-                $_SESSION['IsAdmin'] = $fetchedadmin;
-
-                header("Location: home.php");
-                die();
-
-            }else{
-                $error_msg = "Gegevens zijn incorrect.";
-            }
+        if (str_contains($email, "http") || str_contains($email, "https") || str_contains($email, "www.")){
+            $nolinks = "neen";
+        }elseif (str_contains($wachtwoord1, "http") || str_contains($wachtwoord1, "https") || str_contains($wachtwoord1, 'www.')){
+            $nolinks = "neen";
         }else{
-            $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
+
+            // no links found proceed to login
+            try {
+                $sql = "SELECT * FROM klant WHERE email = '$email'";
+
+                if ($result = mysqli_query($db, $sql)){//fetch data from database
+
+                    if (mysqli_num_rows($result) == 0){
+                        $error_msg = "account niet gevonden";
+                    }
+
+                    $fetchedid = "";
+                    $fetchedvoornaam = "";
+                    $fetchedachternaam = "";
+                    $fetchedemail = "";
+                    $fetchedwachtwoord = "";
+                    $fetchedadmin = "";
+
+
+                    foreach($result as $r) {       //temp save the fetched data
+                        $fetchedid = $r['id'];
+                        $fetchedvoornaam = $r['voornaam'];
+                        $fetchedachternaam = $r['achternaam'];
+                        $fetchedemail = $r['email'];
+                        $fetchedwachtwoord = $r['wachtwoord'];
+                        $fetchedadmin = $r['IsAdmin'];
+                    }
+
+                    if (password_verify($wachtwoord1, $fetchedwachtwoord)){ //check if password is correct
+                        //save data to session
+                        $_SESSION['userid'] = $fetchedid;
+                        $_SESSION['uservoornaam'] = $fetchedvoornaam;
+                        $_SESSION['userachternaam'] = $fetchedachternaam;
+                        $_SESSION['useremail'] = $fetchedemail;
+                        $_SESSION['userwachtwoord'] = $fetchedwachtwoord;
+                        $_SESSION['IsAdmin'] = $fetchedadmin;
+
+                        header("Location: home.php");
+                        die();
+
+                    }else{
+                        $error_msg = "Gegevens zijn incorrect.";
+                    }
+                }else{
+                    $error_msg = "ERROR: could not execute $sql". mysqli_error($db);
+                }
+            }catch(exception $e){
+                echo $e;
+            }
         }
+
     }else{
         $error_msg = "Niet alle velden zijn ingevuld"; //if empty give error message
     }
@@ -92,6 +107,11 @@ if(isset($_POST['login'])) {    //check if login button is pressed
     <?php
     if (isset($error_msg)){
         echo"<p class='text-red-500'>$error_msg</p>";
+    }
+
+    if (isset($nolinks)){?>
+        <p class='text-red-500'>Links zijn niet toegestaan.</p><?php
+        unset($nolinks);
     }
 
     if (isset($_SESSION['reg-email']) && isset($_SESSION['reg-pass'])){?>
