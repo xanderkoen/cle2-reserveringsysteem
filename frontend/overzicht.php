@@ -116,7 +116,7 @@ try {
 </div>
 
 <!--START HTML-->
-<div class="bg-pink-50 rounded mt-4 mx-24 text-center">
+<div class="bg-slate-50 shadow-lg rounded-lg mt-4 mx-24 text-center">
     <p class="text-3xl text-semibold">Reserverings overzicht</p>
     <?php if (isset($_SESSION['admin'])){?>
     <p class="text-green-500">Reservering successvol geannuleerd.</p><?php

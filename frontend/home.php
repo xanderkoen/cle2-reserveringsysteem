@@ -97,7 +97,7 @@ session_start();
 <div class="grid grid-cols-3 gap-4 place-content-center place-items-center mt-4 mx-4">
 
     <div class="col-span-1 rounded">
-        <img src="../images/pink-cake.jpg" alt="Roze taart" width="360" height="360" class="rounded">
+        <img src="../images/pink-cake.jpg" alt="Roze taart" width="360" height="360" class="rounded shadow-lg">
     </div>
 
     <div class="place-self-center col-span-2 text-left rounded">
@@ -116,13 +116,13 @@ session_start();
             echo '<a href="./reserveer.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Reserveer</button></a>';
         }else{
             //user is not logged and and will be reffered to the login page
-            echo "<p>Je moet een account hebben om een afspraak te maken.</p>";
-            echo '<a href="./login.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 ml-80 rounded">Login</button></a>';
+            echo "<p class='contents'>Je moet een account hebben om een afspraak te maken.</p>";
+            echo '<a href="./login.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 sm:ml-80 rounded">Login</button></a>';
         } ?>
     </div>
 
     <div class="col-span-1 rounded mt-24">
-        <img src="../images/bakey-cakey.jpg" height="360" width="360" class="rounded">
+        <img src="../images/bakey-cakey.jpg" height="360" width="360" class="rounded shadow-lg">
     </div>
 
 
