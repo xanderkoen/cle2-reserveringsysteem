@@ -7,10 +7,6 @@ $link = $_GET['id'];
 $userid = $_SESSION['userid'];
 $sql = "SELECT * FROM reservering WHERE id = '$link'";
 
-
-
-
-
 //starting mandatory checks if the user is allowed to be on this page
 
 //logged in
@@ -38,11 +34,6 @@ if ($result = mysqli_query($db, $sql)){
     //item date checks
     $checkdate = date('Y-m-d H:i:s', strtotime('+1 day 1 hour'));
 
-    if ($itemdate < $checkdate){
-        $_SESSION['timeerr'] = 'no time';
-        header("Location: .././profile.php");
-    }
-
     if (isset($_POST['update'])){ //wait for the update input
 
         //retrieve all the values
@@ -54,7 +45,6 @@ if ($result = mysqli_query($db, $sql)){
         //dubble check time/date before updating
         if ($itemdate < $checkdate){
             $_SESSION['timeerr'] = 'no time';
-            header("Location: .././profile.php");
         }else{
             //check for links in info
 
@@ -153,7 +143,7 @@ else{
     <title>MijnEigentaartjes</title>
 </head>
 <body>
-<div class="bg-slate-50 p-4 flex flex-start justify-between items-center">
+<div class="bg-slate-50 border-b shadow-lg p-4 flex flex-start justify-between items-center">
     <a href="../home.php"><p class="text-3xl border-solid border-r pr-4">MijnEigentaartjes</p></a>
     <div class="flex flex-row w-max self-center">
         <a href="../gallerij.php"><p class="px-4 hover:underline">Gallerij</p></a>
@@ -212,8 +202,8 @@ else{
 
             foreach($result as $row){?>
                 <tr>
-                    <td class="p-4"><input type="date" name="date" id="date" value="<?= $row['datum']?>" class="border rounded p-2" required></td>
-                    <td class="p-4"><input type="time" name="time" id="time" value="<?= $row['tijd']?>" class="border rounded p-2" required></td>
+                    <td class="p-4"><input type="date" name="date" id="date" min="<?= date("Y-m-d", strtotime("+1 day"))?>"  value="<?= $row['datum']?>" class="border rounded p-2" required></td>
+                    <td class="p-4"><input type="time" name="time" id="time" value="<?= $row['tijd']?>" min="09:00" max="17:00" class="border rounded p-2" required></td>
                     <td class="p-4 ">
                         <?php if (isset($nolinks)){?>
                             <p class="text-red-500">Links zijn niet toegestaan.</p><?php

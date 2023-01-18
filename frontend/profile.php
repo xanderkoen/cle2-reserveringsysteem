@@ -77,7 +77,7 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
     <title>MijnEigentaartjes</title>
 </head>
 <body>
-<div class="bg-slate-50 p-4 flex flex-start justify-between items-center">
+<div class="bg-slate-50 border-b shadow-lg p-4 flex flex-start justify-between items-center">
     <a href="home.php"><p class="text-3xl border-solid border-r pr-4">MijnEigentaartjes</p></a>
     <div class="flex flex-row w-max self-center">
         <a href="gallerij.php"><p class="px-4 hover:underline">Gallerij</p></a>
@@ -107,7 +107,7 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
 
 <!--START HTML-->
 
-<div class="bg-pink-50 rounded mt-4 mx-24 text-center">
+<div class="bg-slate-50 border shadow-lg rounded mt-4 mx-24 text-center">
     <?php if (isset($_SESSION['successmsg'])){
         echo'<p class="text-green-500"> Reservering successvol aangemaakt!</p>';// create success message
         unset($_SESSION['successmsg']); //delete success message after showing

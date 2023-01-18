@@ -132,7 +132,7 @@ if(isset($_POST["reserveer"])){
     <title>MijnEigentaartjes</title>
 </head>
 <body>
-<div class="bg-slate-50 p-4 flex flex-start justify-between items-center">
+<div class="bg-slate-50 border-b shadow-lg p-4 flex flex-start justify-between items-center">
     <a href="home.php"><p class="text-3xl border-solid border-r pr-4">MijnEigentaartjes</p></a>
     <div class="flex flex-row w-max self-center">
         <a href="gallerij.php"><p class="px-4 hover:underline">Gallerij</p></a>

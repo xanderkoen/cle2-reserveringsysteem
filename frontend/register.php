@@ -131,20 +131,24 @@ if(isset($_POST['register'])){
 
     <form action="./register.php" method="post">
 
-    <div class="flex flex-col w-max items-center bg-slate-100 rounded mx-4">
-        <p>Registreer account</p>
+    <div class="bg-slate-50 flex flex-col rounded-lg shadow-lg mt-24 px-4 mx-auto w-fit text-center">
+        <p class="text-3xl font-semibold mb-4">Registreer account</p>
 
-        <input class="border border-solid rounded" type="text" name="voornaam" placeholder="Voornaam">
-        <input class="border border-solid rounded" type="text" name="achternaam" placeholder="Achternaam">
-        <input class="border border-solid rounded" type="email" name="email" placeholder="email">
-        <input class="border border-solid rounded" type="password" name="wachtwoord1" placeholder="Wachtwoord">
-        <input class="border border-solid rounded" type="password" name="wachtwoord2" placeholder="Herhaal wachtwoord">
-        <input type="submit" class="bg-green-600 rounded p-1 m-4" name="register" value="register"/>
+        <p class="text-xl text-left border-b-4 mb-2">Voornaam</p>
+        <input class="border border-solid rounded w-96 p-2 mb-4 shadow-lg" type="text" name="voornaam" placeholder="Voornaam">
+        <p class="text-xl text-left border-b-4 mb-2">Achternaam</p>
+        <input class="border border-solid rounded w-96 p-2 mb-4 shadow-lg" type="text" name="achternaam" placeholder="Achternaam">
+        <p class="text-xl text-left border-b-4 mb-2">Email Adres</p>
+        <input class="border border-solid rounded w-96 p-2 mb-4 shadow-lg" type="email" name="email" placeholder="email">
+        <p class="text-xl text-left border-b-4 mb-2">Wachtwoord</p>
+        <input class="border border-solid rounded w-96 p-2 mb-4 shadow-lg" type="password" name="wachtwoord1" placeholder="Wachtwoord">
+        <input class="border border-solid rounded w-96 p-2 mb-4 shadow-lg" type="password" name="wachtwoord2" placeholder="Herhaal wachtwoord">
+        <input type="submit" class="bg-green-500 hover:bg-green-700 rounded text-white w-fit mx-auto px-8 py-2 font-semibold text-xl shadow-lg my-4" name="register" value="register"/>
     </div>
 
     </form>
 
-    <p>Heb je al een account? klik <a href="./login.php" class="text-blue-500 hover:underline">Hier</a> om in te loggen.</p>
+    <p class="mt-4">Heb je al een account? klik <a href="./login.php" class="text-blue-500 hover:underline">Hier</a> om in te loggen.</p>
 </div>
 </body>
 </html>

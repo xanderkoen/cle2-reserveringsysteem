@@ -118,20 +118,22 @@ if(isset($_POST['login'])) {    //check if login button is pressed
         <p class="text-xl text-green-500">Account successvol geregistreerd!</p>
    <?php } ?>
 
-    <form action="./login.php" method="post">
+    <form action="./login.php" method="post" class="w-full">
 
-        <div class="flex flex-col w-max items-center bg-slate-100 rounded mx-4">
-            <p>Login</p>
+        <div class="bg-slate-50 flex flex-col rounded-lg shadow-lg mt-24 px-4 mx-auto w-fit text-center">
+            <p class="text-3xl font-semibold mb-4">Login</p>
 
-            <input class="border border-solid rounded" type="email" name="email" placeholder="email" <?php if(isset($_SESSION['reg-email'])){ $setemail = $_SESSION['reg-email']; echo "value='$setemail'";}?>>
-            <input class="border border-solid rounded" type="password" name="wachtwoord1" placeholder="Wachtwoord" <?php if(isset($_SESSION['reg-pass'])){ $setpass = $_SESSION['reg-pass']; echo "value='$setpass'";}?>>
-            <input type="submit" class="bg-green-600 rounded p-1 px-2 m-4" name="login" value="Log in"/>
+            <p class="text-xl text-left border-b-4 mb-2">Email adres</p>
+            <input class="border border-solid rounded w-96 p-2 mb-4 shadow-lg" type="email" name="email" placeholder="email" <?php if(isset($_SESSION['reg-email'])){ $setemail = $_SESSION['reg-email']; echo "value='$setemail'";}?>>
+            <p class="text-xl text-left border-b-4 mb-2">Wachtwoord</p>
+            <input class="border border-solid rounded p-2 shadow-lg" type="password" name="wachtwoord1" placeholder="Wachtwoord" <?php if(isset($_SESSION['reg-pass'])){ $setpass = $_SESSION['reg-pass']; echo "value='$setpass'";}?>>
+            <input type="submit" class="bg-green-500 hover:bg-green-700 rounded text-white w-fit mx-auto px-8 py-2 font-semibold text-xl shadow-lg my-4" name="login" value="Log in"/>
         </div>
 
     </form>
 
     <?php unset($_SESSION['reg-email']);unset($_SESSION['reg-pass']); ?>
-    <p>Heb je nog geen account? klik <a href="register.php" class="text-blue-500 hover:underline">Hier</a> om in te registreren.</p>
+    <p class="mt-4">Heb je nog geen account? klik <a href="register.php" class="text-blue-500 hover:underline">Hier</a> om in te registreren.</p>
 </div>
 </body>
 </html>
