@@ -16,7 +16,7 @@ if ($_SESSION['IsAdmin'] != 1){
 
 //retrieve reservatie count
 try {
-    $countsql = "SELECT id FROM reservering WHERE datum = '$date'";
+    $countsql = "SELECT id FROM reserveringen WHERE datum = '$date'";
 
     if($today = mysqli_query($db, $countsql)){
         $reserveringtoday = mysqli_num_rows($today);
@@ -97,13 +97,13 @@ try {
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam']); ?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="./profile.php">Mijn profiel</a>
-                    <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href="./overzicht.php" style="background-color: #ddd;">Reservering overzicht</a>';}?>
+                    <?php if($_SESSION['IsAdmin'] == 1){?>
+                        <a href="./overzicht.php" style="background-color: #ddd;">Reservering overzicht</a><?php } ?>
                     <a href="./logout.php">Log uit</a>
                 </div>
             </div>
@@ -136,16 +136,16 @@ try {
         <?php
             //retrieve data for page
             try {
-            $sql = "SELECT reservering.id, datum, tijd, klant.voornaam, klant.achternaam FROM reservering INNER JOIN klant ON reservering.klant_id = klant.id ORDER BY reservering.datum ASC, reservering.tijd ASC;";
+            $sql = "SELECT reserveringen.id, datum, tijd, klanten.voornaam, klanten.achternaam FROM reserveringen INNER JOIN klanten ON reserveringen.klant_id = klanten.id ORDER BY reserveringen.datum ASC, reserveringen.tijd ASC;";
 
             if ($result = mysqli_query($db, $sql)){
                 while ($row = $result->fetch_assoc()){
                     if ($row['datum'] >= date("Y-m-d")){ // filter out all the reservations from the past?>
                         <tr>
-                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['voornaam'] ?></th>
-                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['achternaam'] ?></th>
-                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['datum']?></th>
-                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= $row['tijd']?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= htmlspecialchars($row['voornaam']); ?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= htmlspecialchars($row['achternaam']); ?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= htmlspecialchars($row['datum']);?></th>
+                            <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><?= htmlspecialchars($row['tijd']);?></th>
                             <th class="border-b font-medium p-4 pl-8 pt-0 pb-3"><a href="../frontend/reservering/reservering.php?id=<?= $row['id']?>"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Meer info</button></a></th>
                         </tr>
                         <?php

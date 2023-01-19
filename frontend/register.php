@@ -34,7 +34,7 @@ if(isset($_POST['register'])){
             //no links found so the user can be registered
 
             try {
-                $sql = "SELECT * FROM klant WHERE email = '$email'";
+                $sql = "SELECT * FROM klanten WHERE email = '$email'";
 
                 if ($result = mysqli_query($db, $sql)){
                     $count = mysqli_num_rows($result);
@@ -53,7 +53,7 @@ if(isset($_POST['register'])){
                                 try {
 
                                     //send all the user data to database
-                                    $sql = "INSERT INTO klant (voornaam, achternaam, email, wachtwoord) VALUES ('$voornaam', '$achternaam', '$email', '$hashedpassword')";
+                                    $sql = "INSERT INTO klanten (voornaam, achternaam, email, wachtwoord) VALUES ('$voornaam', '$achternaam', '$email', '$hashedpassword')";
 
                                     if (mysqli_query($db, $sql)){
                                         //redirect with success message and all the shit filled in the inputs.

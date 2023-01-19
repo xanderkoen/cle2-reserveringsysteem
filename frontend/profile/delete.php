@@ -12,13 +12,13 @@ if (isset($_POST['delete'])){//wait for post
 
         // delete every reservation made by this user
         try {
-            $sql = "DELETE FROM reservering WHERE klant_id = '$userid'";
+            $sql = "DELETE FROM reserveringen WHERE klant_id = '$userid'";
 
             if ($result = mysqli_query($db, $sql)){
                 //delete user
 
                 try {
-                    $sql2 = "DELETE FROM klant WHERE id = '$userid'";
+                    $sql2 = "DELETE FROM klanten WHERE id = '$userid'";
 
                     if ($result2 = mysqli_query($db, $sql2)){
                         // clear/terminate sessiom
@@ -120,13 +120,13 @@ if (isset($_POST['delete'])){//wait for post
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam']); ?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href=".././profile.php">Mijn profiel</a>
-                    <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href=".././overzicht.php">Reservering overzicht</a>';}?>
+                    <?php if($_SESSION['IsAdmin'] == 1){?>
+                        <a href=".././overzicht.php">Reservering overzicht</a><?php }?>
                     <a href=".././logout.php">Log uit</a>
                 </div>
             </div>

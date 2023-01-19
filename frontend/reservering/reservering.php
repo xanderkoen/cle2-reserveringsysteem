@@ -26,7 +26,7 @@ $klantemail = "";
 
 //retrieve all the data
 try {
-    $sql = "SELECT reservering.id, datum, tijd, info, taart, klant_id, klant.voornaam, klant.achternaam, klant.email FROM reservering INNER JOIN klant ON reservering.klant_id = klant.id WHERE reservering.id = '$linkid'";
+    $sql = "SELECT reserveringen.id, datum, tijd, info, taart, klant_id, klanten.voornaam, klanten.achternaam, klanten.email FROM reserveringen INNER JOIN klanten ON reserveringen.klant_id = klanten.id WHERE reserveringen.id = '$linkid'";
 
     if ($result = mysqli_query($db, $sql)){
         foreach($result as $r){
@@ -49,7 +49,7 @@ try {
 if (isset($_POST['delete'])){
     try {
         //cancel reservation
-        $deletesql = "DELETE FROM reservering WHERE id = '$linkid'";
+        $deletesql = "DELETE FROM reserveringen WHERE id = '$linkid'";
 
         if ($result = mysqli_query($db, $deletesql)){
             //redirect user back to overview with notif
@@ -133,13 +133,13 @@ if (isset($_POST['delete'])){
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam']); ?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href=".././profile.php">Mijn profiel</a>
-                    <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href=".././overzicht.php">Reservering overzicht</a>';}?>
+                    <?php if($_SESSION['IsAdmin'] == 1){?>
+                        <a href=".././overzicht.php">Reservering overzicht</a><?php } ?>
                     <a href=".././logout.php">Log uit</a>
                 </div>
             </div>
@@ -156,12 +156,12 @@ if (isset($_POST['delete'])){
     <p class="text-3xl">Reservering info</p>
     <div class="mt-12">
         <p class="text-2xl text-semibold">Klant info : </p>
-        <p><?= $klantvoornaam?> <?= $klantachternaam?></p>
-        <p>email : <?= $klantemail?></p>
+        <p><?= htmlspecialchars($klantvoornaam);?> <?= htmlspecialchars($klantachternaam);?></p>
+        <p>email : <?= htmlspecialchars($klantemail);?></p>
         <p>datum, tijd, info, taart , voornaam, achternaam, email</p>
 
         <p class="mt-12 text-2xl text-semibold">Reservatie info :</p>
-        <p>Datum : <?= $reserveringdatum?> - Tijd : <?= $reserveringtijd ?></p>
+        <p>Datum : <?= htmlspecialchars($reserveringdatum);?> - Tijd : <?= htmlspecialchars($reserveringtijd); ?></p>
         <p> Soort taart : <?php if ($reserveringtaart == 1){
             echo "cupcakes";
             }elseif($reserveringtaart == 2){
@@ -172,7 +172,7 @@ if (isset($_POST['delete'])){
 
         <?php if (strlen($reserveringinfo) > 0){?>
         <p class="text-xl mt-4  text-semibold">Extra informatie :</p>
-        <p><?= $reserveringinfo ?></p><?php
+        <p><?= htmlspecialchars($reserveringinfo); ?></p><?php
         }?>
     </div>
     <?php if (isset($_POST['check'])){?>

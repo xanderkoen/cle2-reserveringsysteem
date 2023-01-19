@@ -4,7 +4,7 @@ session_start();
 
 //retrieve data from id in link
 $link = $_GET['id'];
-$sql = "SELECT * FROM reservering WHERE id = '$link'";
+$sql = "SELECT * FROM reserveringen WHERE id = '$link'";
 
 
 
@@ -51,7 +51,7 @@ if ($result = mysqli_query($db, $sql)){
         }else{
             //user has time left so they can modify item
 
-            $del = "DELETE FROM reservering WHERE id = '$itemid' ";
+            $del = "DELETE FROM reserveringen WHERE id = '$itemid' ";
 
             if ($delresult = mysqli_query($db, $del)){
                 //item successfully deleted
@@ -148,7 +148,7 @@ else{
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam']); ?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
@@ -196,9 +196,9 @@ else{
 
     foreach($result as $row){?>
     <tr>
-        <td class="p-4 "> <?= $row['datum']?></td>
-        <td class="p-4 "><?= $row['tijd']?></td>
-        <td class="p-4 "> <?= $row['info']?></td>
+        <td class="p-4 "> <?= htmlspecialchars($row['datum']);?></td>
+        <td class="p-4 "><?= htmlspecialchars($row['tijd']);?></td>
+        <td class="p-4 "> <?= htmlspecialchars($row['info']);?></td>
         <td class="p-4 "> <?php if($row['taart'] == 1){
                 echo "Cupcake";
             }elseif($row['taart'] == 2){

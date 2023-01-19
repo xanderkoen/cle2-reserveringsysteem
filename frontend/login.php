@@ -23,7 +23,7 @@ if(isset($_POST['login'])) {    //check if login button is pressed
 
             // no links found proceed to login
             try {
-                $sql = "SELECT * FROM klant WHERE email = '$email'";
+                $sql = "SELECT * FROM klanten WHERE email = '$email'";
 
                 if ($result = mysqli_query($db, $sql)){//fetch data from database
 

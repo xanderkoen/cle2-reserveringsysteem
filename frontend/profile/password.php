@@ -55,7 +55,7 @@ if(isset($_POST['update'])){//waiting for button submit press
                         //SQL update klant wachtwoord='$hashedpassword'
                         //onsuccess redirect to profile.php with message
                         try {
-                            $sql = "UPDATE klant SET wachtwoord='$hashedpass' WHERE id = '$userid'";
+                            $sql = "UPDATE klanten SET wachtwoord='$hashedpass' WHERE id = '$userid'";
 
                             if ($result = mysqli_query($db, $sql)){
                                 //update session password
@@ -160,13 +160,13 @@ if(isset($_POST['update'])){//waiting for button submit press
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam'])?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href=".././profile.php">Mijn profiel</a>
-                    <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href=".././overzicht.php">Reservering overzicht</a>';}?>
+                    <?php if($_SESSION['IsAdmin'] == 1){?>
+                        <a href=".././overzicht.php">Reservering overzicht</a><?php }?>
                     <a href=".././logout.php">Log uit</a>
                 </div>
             </div>

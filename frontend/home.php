@@ -72,13 +72,13 @@ session_start();
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam']); ?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="./profile.php">Mijn profiel</a>
-                    <?php if($_SESSION['IsAdmin'] == 1){
-                    echo '<a href="./overzicht.php">Reservering overzicht</a>';}?>
+                    <?php if($_SESSION['IsAdmin'] == 1){?>
+                    <a href="./overzicht.php">Reservering overzicht</a><?php } ?>
                     <a href="./logout.php">Log uit</a>
                 </div>
             </div>
@@ -112,12 +112,13 @@ session_start();
 
     <div class="rounded flex flex-col mt-24">
         <?php if(isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){
-            //user is logged in and can make a appointment
-            echo '<a href="./reserveer.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Reserveer</button></a>';
+            //user is logged in and can make a appointment ?>
+            <a href="./reserveer.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 rounded">Reserveer</button></a><?php
         }else{
-            //user is not logged and and will be reffered to the login page
-            echo "<p class='contents'>Je moet een account hebben om een afspraak te maken.</p>";
-            echo '<a href="./login.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 sm:ml-80 rounded">Login</button></a>';
+            //user is not logged and and will be reffered to the login page ?>
+
+            <p class='contents'>Je moet een account hebben om een afspraak te maken.</p>
+            <a href="./login.php"><button class="bg-purple-200 hover:bg-purple-400 py-2 px-4 mt-2 sm:ml-80 rounded">Login</button></a><?php
         } ?>
     </div>
 

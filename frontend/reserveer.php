@@ -48,7 +48,7 @@ if(isset($_POST["reserveer"])){
                 $nolinks = "neen";
             }else{
                 try {
-                    $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '$extra', '$soort', '$userid')";
+                    $sql = "INSERT INTO reserveringen (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '$extra', '$soort', '$userid')";
 
                     if (mysqli_query($db, $sql)){
                         successredirect();
@@ -60,7 +60,7 @@ if(isset($_POST["reserveer"])){
 
         }else{
             //message is empty
-            $sql = "INSERT INTO reservering (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '', '$soort', '$userid')";
+            $sql = "INSERT INTO reserveringen (id, datum, tijd, info, taart, klant_id) VALUES ('', '$date', '$time', '', '$soort', '$userid')";
 
             if (mysqli_query($db, $sql)){
                 successredirect();
@@ -142,13 +142,13 @@ if(isset($_POST["reserveer"])){
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam']) ?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="./profile.php">Mijn profiel</a>
                     <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href="#">Reservering overzicht</a>';}?>
+                        echo '<a href="./overzicht.php">Reservering overzicht</a>';}?>
                     <a href="./logout.php">Log uit</a>
                 </div>
             </div>
@@ -162,28 +162,28 @@ if(isset($_POST["reserveer"])){
 
 <!--START HTML-->
 
-<div class="bg-pink-50 rounded mt-4 mx-24 text-center">
+<div class="bg-slate-50 rounded pb-2 mt-4 mx-24 text-center">
     <p class="text-3xl">Reserveer afspraak</p>
 
     <form action="./reserveer.php" method="post">
         <p class="text-xl mt-4">datum</p>
-        <?php if (isset($_SESSION['invalid_date'])){
-            echo "<p class='text-red-500'>deze datum is niet toegestaan.</p>";
+        <?php if (isset($_SESSION['invalid_date'])){?>
+            <p class='text-red-500'>deze datum is niet toegestaan.</p><?php
             unset($_SESSION['invalid_date']);
         } ?>
         <input type="date" name="date" id="date" min="<?= date("Y-m-d", strtotime("+1 day"))?>" required>
 
         <p class="text-xl mt-4">tijd</p>
-        <?php if (isset($_SESSION['invalid_time'])){
-            echo "<p class='text-red-500'>deze tijd is niet toegestaan.</p>";
+        <?php if (isset($_SESSION['invalid_time'])){?>
+            <p class='text-red-500'>deze tijd is niet toegestaan.</p><?php
             unset($_SESSION['invalid_time']);
         }?>
         <p class="text-xs mb-2">mogelijk vanaf 09 - 17:00</p>
         <input type="time" name="time" id="time" min="09:00" max="17:00" required>
 
         <p class="text-xl mt-4">Soort taart</p>
-        <?php if (isset($soortmsg)){
-            echo "<p class='text-red-500'>$soortmsg</p>";
+        <?php if (isset($soortmsg)){?>
+            <p class='text-red-500'><?= htmlspecialchars($soortmsg)?></p><?php
         }?>
         <select name="soort" id="soort" required>
             <option selected value="0">Kies een optie</option>

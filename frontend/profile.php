@@ -14,7 +14,7 @@ $checkdate = date('Y-m-d H:i:s', strtotime('+1 day 1 hour'));
 $userid = $_SESSION['userid'];
 
 //retrieve all user reservations
-$sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '$userid' " ;
+$sql = " SELECT id, datum, tijd, info, taart FROM reserveringen WHERE klant_id = '$userid' " ;
 ?>
 
 <!doctype html>
@@ -87,13 +87,13 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam']) ?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="./profile.php" class="bg-slate-150" style="background-color: #ddd;">Mijn profiel</a>
-                    <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href="./overzicht.php">Reservering overzicht</a>';}?>
+                    <?php if($_SESSION['IsAdmin'] == 1){?>
+                        <a href="./overzicht.php">Reservering overzicht</a><?php }?>
                     <a href="./logout.php">Log uit</a>
                 </div>
             </div>
@@ -108,52 +108,52 @@ $sql = " SELECT id, datum, tijd, info, taart FROM reservering WHERE klant_id = '
 <!--START HTML-->
 
 <div class="bg-slate-50 border shadow-lg rounded mt-4 mx-24 text-center">
-    <?php if (isset($_SESSION['successmsg'])){
-        echo'<p class="text-green-500"> Reservering successvol aangemaakt!</p>';// create success message
+    <?php if (isset($_SESSION['successmsg'])){?>
+        <p class="text-green-500"> Reservering successvol aangemaakt!</p><?php // create success message
         unset($_SESSION['successmsg']); //delete success message after showing
     }
 
-    if (isset($_SESSION['sucdel'])){
-        echo'<p class="text-green-500"> Reservering successvol geannuleerd!</p>';// delete success  message
+    if (isset($_SESSION['sucdel'])){?>
+        <p class="text-green-500"> Reservering successvol geannuleerd!</p><?php // delete success  message
         unset($_SESSION['sucdel']); //delete success message after showing
     }
 
-    if (isset($_SESSION['passreset'])){
-        echo'<p class="text-green-500"> Wachtwoord successvol veranderd!</p>';// delete success  message
+    if (isset($_SESSION['passreset'])){?>
+        <p class="text-green-500"> Wachtwoord successvol veranderd!</p><?php // delete success  message
         unset($_SESSION['passreset']); //delete success message after showing
     }
 
-    if (isset($_SESSION['sucupd'])){
-        echo'<p class="text-green-500"> Reservering successvol aangepast!</p>';// delete success  message
+    if (isset($_SESSION['sucupd'])){?>
+        <p class="text-green-500"> Reservering successvol aangepast!</p><?php // delete success  message
         unset($_SESSION['sucupd']); //delete success message after showing
     }
 
-    if (isset($_SESSION['profupd'])){
-        echo'<p class="text-green-500"> Account successvol aangepast!</p>';// delete success  message
+    if (isset($_SESSION['profupd'])){?>
+        <p class="text-green-500"> Account successvol aangepast!</p><?php // delete success  message
         unset($_SESSION['profupd']); //delete success message after showing
     }
 
-    if (isset($_SESSION['norights'])){
-        echo'<p class="text-red-500"> Je hebt geen toestemming tot deze reservering!</p>';//error for user does something with sum they dont own
+    if (isset($_SESSION['norights'])){?>
+        <p class="text-red-500"> Je hebt geen toestemming tot deze reservering!</p><?php //error for user does something with sum they dont own
         unset($_SESSION['norights']); //delete success message after showing
     }
 
-    if (isset($_SESSION['timeerr'])){
-        echo'<p class="text-yellow-500"> Je hebt geen tijd meer om de reservering te veranderen!</p>';//error for when no time left
+    if (isset($_SESSION['timeerr'])){?>
+        <p class="text-yellow-500"> Je hebt geen tijd meer om de reservering te veranderen!</p><?php //error for when no time left
         unset($_SESSION['timeerr']); //delete success message after showing
     }?>
 
 
-    <p class="text-3xl font-semibold">Welkom <?php echo $_SESSION['uservoornaam']?></p>
+    <p class="text-3xl font-semibold">Welkom <?php echo htmlspecialchars($_SESSION['uservoornaam']) ?></p>
 
 
     <div class="grid grid-cols-2  mx-4 rounded mb-4">
         <div>
             <p class="text-2xl">User gegevens</p>
             <br>
-            <p>Voornaam : <?php echo $_SESSION['uservoornaam']; ?></p>
-            <p>Achternaam : <?php echo $_SESSION['userachternaam']; ?></p>
-            <p>Email : <?php echo $_SESSION['useremail']; ?> </p>
+            <p>Voornaam : <?php echo htmlspecialchars($_SESSION['uservoornaam']); ?></p>
+            <p>Achternaam : <?php echo htmlspecialchars($_SESSION['userachternaam']); ?></p>
+            <p>Email : <?php echo htmlspecialchars($_SESSION['useremail']); ?> </p>
 
             <a href="./profile/edit.php"><button class="bg-yellow-200 hover:bg-yellow-400 py-2 px-4 mt-2 rounded">Verander Gegevens</button></a>
             <a href="./profile/delete.php"><button class="bg-red-300 hover:bg-red-500 py-2 px-4 mt-2 rounded">Verwijder Account</button></a>

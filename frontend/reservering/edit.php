@@ -5,7 +5,7 @@ session_start();
 //retrieve data from id in link
 $link = $_GET['id'];
 $userid = $_SESSION['userid'];
-$sql = "SELECT * FROM reservering WHERE id = '$link'";
+$sql = "SELECT * FROM reserveringen WHERE id = '$link'";
 
 //starting mandatory checks if the user is allowed to be on this page
 
@@ -55,7 +55,7 @@ if ($result = mysqli_query($db, $sql)){
 
                 try {
 
-                    $update = "UPDATE reservering SET datum='$datum', tijd='$tijd', info='$info', taart='$soort' WHERE id = '$itemid'";
+                    $update = "UPDATE reserveringen SET datum='$datum', tijd='$tijd', info='$info', taart='$soort' WHERE id = '$itemid'";
 
                     if ($updresult = mysqli_query($db, $update)){
                         //item successfully updated
@@ -153,13 +153,13 @@ else{
     <div class="flex">
         <?php if (isset($_SESSION['userid']) && isset($_SESSION['uservoornaam'])){?>
             <div class="dropdown flex">
-                <button class="dropbtn"><?php echo $_SESSION['uservoornaam']?>
+                <button class="dropbtn"><?php echo htmlspecialchars($_SESSION['uservoornaam'])?>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href=".././profile.php">Mijn profiel</a>
-                    <?php if($_SESSION['IsAdmin'] == 1){
-                        echo '<a href=".././overzicht.php">Reservering overzicht</a>';}?>
+                    <?php if($_SESSION['IsAdmin'] == 1){?>
+                        <a href=".././overzicht.php">Reservering overzicht</a><?php } ?>
                     <a href=".././logout.php">Log uit</a>
                 </div>
             </div>
