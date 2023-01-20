@@ -7,6 +7,28 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
     header("Location: ./home.php"); // if user data is present (user is logged in) redirect back to homepage
 }
 
+//PSEUDO login
+
+//wacht op submit input
+    //check alle vars of ze niet leeg zijn
+        //check success
+            //check of de gegevens geen links hebben
+                //check success
+                    //haal de user met de email op uit de database
+                        //user gevonden
+                            //vergelijk wachtwoorden met elkaar
+                                //wachtwoorden kloppen
+                                    //log de user in in de session en sla alle data op op de session
+                                    //redirect terug naar homepage (met session data opgeslagen nu)
+                                //wachtwoorden kloppen niet
+                                    //geef error message
+                        //user niet gevonden
+                            //geef error messgae
+                //check gefaald
+                    //geef error message
+        //check gefaald
+            //geef error message
+
 if(isset($_POST['login'])) {    //check if login button is pressed
     $email = mysqli_real_escape_string($db, $_POST['email']);
     $wachtwoord1 = mysqli_real_escape_string($db, $_POST['wachtwoord1']);

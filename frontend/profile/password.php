@@ -6,6 +6,34 @@ session_start();
 $userid = $_SESSION['userid'];
 $userwachtwoord = $_SESSION['userwachtwoord'];
 
+//PSEUDO PASSWORD EDIT
+
+//wacht op submit input
+    //haal alle data op en sla het op in variabeles
+    //check of alle variabeles niet leeg zijn
+        //check success
+            //check of de variabeles lang genoeg zijn
+                //check success
+                    //check of het wachtwoord geen links bevatten
+                    //check success
+                        //check of de nieuwe password gelijk zijn aan elkaar
+                            //check success
+                                //check of het oude wachtwoord klopt
+                                    //check success
+                                        //update het wachtwoord in de database
+                                        //update de session variabeles
+                                    //check gefaald
+                                        //geef error message
+                            //check gefaald
+                                //geef error message
+                    //check gefaald
+                        //geef error message
+                //check gefaald
+                    //geef error message
+        //check gefaald
+            //geef error message
+
+
 
 
 

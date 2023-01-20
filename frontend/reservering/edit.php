@@ -14,6 +14,24 @@ if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
     header("Location: .././profile.php"); // if user data is  not present (user is logged out) redirect back to login
 }
 
+//PSEUDO reservering EDIT
+
+//wacht op edit input
+//check de datum op illegale tijden
+    //check success
+        //check reservering op illegale datum
+            //check success
+                //check voor mogelijke links in de extra info tab
+                    //check success (geen links)
+                        //update de gegevens in de database
+                        //redirect user terug naar profiel pagina
+                    //check gefaald (wel links)
+                        //geef error message
+            //check gefaald
+                //geef error message
+    //check gefaald
+        //geef error message
+
 //if user owns reservation
 if ($result = mysqli_query($db, $sql)){
     $klantid = "";

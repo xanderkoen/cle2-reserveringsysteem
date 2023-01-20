@@ -14,6 +14,9 @@ if ($_SESSION['IsAdmin'] != 1){
     header("Location: ./home.php");
 }
 
+//PSEUDO admin index reservering
+    //haal alle reservaties op voor vandaag en in de toekomst
+
 //retrieve reservatie count
 try {
     $countsql = "SELECT id FROM reserveringen WHERE datum = '$date'";

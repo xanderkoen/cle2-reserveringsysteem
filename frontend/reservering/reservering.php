@@ -23,6 +23,12 @@ $klantvoornaam = "";
 $klantachternaam = "";
 $klantemail = "";
 
+//PSEUDO delete reservering [ADMIN]
+
+//wacht op delete input
+    //delete resevering van de database waar de id hetzelfde van is
+    //redirect terug naar overzicht pagina
+
 
 //retrieve all the data
 try {

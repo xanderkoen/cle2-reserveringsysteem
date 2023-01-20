@@ -5,6 +5,18 @@ session_start();
 //vars
 $userid = $_SESSION['userid'];
 
+//PSEUDO DELETE
+
+//wacht op de delete input
+    //controleer het controle woord
+    //controle goed
+        //delete elke reservering gemaakt van de user
+        //delete account van de database
+        //unset alle session variabeles
+        //redirect terug naar homepage
+    //controle niet goed
+        //geef error message
+
 if (isset($_POST['delete'])){//wait for post
     //control check word
     if ($_POST['check'] == "verwijder"){

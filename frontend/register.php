@@ -7,6 +7,22 @@ if (isset($_SESSION['voornaam']) && isset($_SESSION['klantid'])){
     header("Location: ./home.php"); // if user data is present (user is logged in) redirect back to homepage
 }
 
+//PSEUDO code Register user
+
+//wacht op submit input
+//sla alle data op naar variabelen
+//check de vars op links
+    //check success (geen links)
+        //check de database of er al een account is aangemaakt met hetzelfde email
+            //check success (niks gevonden)
+                //registreer account in de database
+                //redirect user naar login pagina met email en wachtwoord opgeslagen zodat je die niet meer hoeft in te typen (eenmalig)
+            //check gefaald (account wel gevonden)
+                //geef error dat account al bestaat
+    //check gefaald (wel link)
+        //geef error
+
+
 if(isset($_POST['register'])){
     //get all the inputted data
     $voornaam = mysqli_real_escape_string($db, $_POST['voornaam']);

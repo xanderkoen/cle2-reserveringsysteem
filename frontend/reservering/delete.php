@@ -6,7 +6,15 @@ session_start();
 $link = $_GET['id'];
 $sql = "SELECT * FROM reserveringen WHERE id = '$link'";
 
+//PSEUDO reservering DELETE
 
+//wacht op delete input
+    //check de datum of er nog genoeg tijd is om de afspraak te cancellen
+        //check success
+            //delete de reservering van de database
+            //redirect terug naar profiel pagina
+        //check gefaald
+            //geef error message
 
 
 

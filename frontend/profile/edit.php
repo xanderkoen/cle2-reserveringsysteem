@@ -17,6 +17,17 @@ if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
 
 //dont have to check if the user is editing the correct person since everything is gathered from the session
 
+
+//PSEUDO EDIT
+
+//wahct op de update input
+//haal alle waardes op
+//valideer de input op links
+    //validatie goed
+        //update de gegevens in de database
+    //validatie slecht
+        //geef een error message terug
+
 if (isset($_POST['update'])) { //wait for the update input
 
     //retrieve posted lines

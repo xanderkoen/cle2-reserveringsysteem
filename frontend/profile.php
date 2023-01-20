@@ -7,6 +7,10 @@ if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
     header("Location: ./login.php"); // if user data is  not present (user is logged out) redirect back to login
 }
 
+//PSEUDO reservering index
+
+//haal alle reserveringen op waarvan de datum vandaag en in de toekomst is met dezelfde userid die opgeslagen is in de session
+
 //save currentdatetime to variable
 $checkdate = date('Y-m-d H:i:s', strtotime('+1 day 1 hour'));
 

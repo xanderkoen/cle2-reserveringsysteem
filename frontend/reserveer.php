@@ -11,6 +11,30 @@ if (!isset($_SESSION['uservoornaam']) && !isset($_SESSION['userid'])){
     header("Location: ./login.php"); // if user data is  not present (user is logged out) redirect back to login
 }
 
+//PSEUDO code create Reservering
+
+//wacht op submit input
+//check of de user een cakesize heeft uitgekozen
+    //check success
+        //haal alle data op en sla het op naar variabelen
+        //check de datum op illegale datum
+            //check success (geen illegale datum)
+                //check de tijd op illegale tijden
+                    //check success (geen illegale tijd)
+                        //check of de extra info is ingevuld
+                            //info is niet ingevuld
+                                //submit alle data in de database waarbij de info niet ingevuld wordt
+                                //redirect user naar profile pagina
+                            //info is wel ingevuld
+                                //submit de data in de database waarbij de info wel is ingevuld
+                                //redirect user naar profile pagina
+                    //check gefaald (wel illegale tijd)
+                        //geef error message
+            //check gefaald (wel illegale datum)
+                //geef error messgae
+    //check gefaald
+        //geef error
+
 //first we check if user submits the form
 if(isset($_POST["reserveer"])){
     //check if user forgot to select a cake size
