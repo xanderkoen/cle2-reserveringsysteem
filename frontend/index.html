@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .center {
+            margin-top: 20%;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        div {
+            flex: auto;
+            height: 100%;
+            place-content: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <p class="center">Redirecting to page.</p>
+    </div>
+</body>
+</html>
+
+<script>
+    window.onload = init
+
+    function init() {
+        window.location.href = "../frontend/home.php"
+    }
+</script>
